@@ -1,5 +1,2 @@
-import useSocketHook from './hooks/useSocket';
-import SocketIOProvider from './providers/SocketIOProvider';
-
-export const useSocket = useSocketHook
-export const Provider = SocketIOProvider
+export { default as useSocket } from './hooks/useSocket'
+export { default as SocketIOProvider } from './providers/SocketIOProvider'
