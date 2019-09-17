@@ -1,0 +1,40 @@
+{
+  "name": "socketio-hooks",
+  "version": "1.0.0",
+  "description": "Package containing React Hooks for Socket IO",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghmendonca/socketio-hooks.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "socketio"
+  ],
+  "author": "Gustavo Mendonça",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghmendonca/socketio-hooks/issues"
+  },
+  "homepage": "https://github.com/ghmendonca/socketio-hooks#readme",
+  "devDependencies": {
+    "@types/react": "^16.9.2",
+    "@types/socket.io-client": "^1.4.32",
+    "prettier": "^1.18.2",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "react": "^16.9.0",
+    "socket.io-client": "^2.2.0"
+  }
+}
