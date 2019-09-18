@@ -5,17 +5,18 @@ import io from 'socket.io-client'
 const SocketProvider: React.FunctionComponent<{
     url: string
     namespaces?: string[]
-}> = ({ children, namespaces, url }) => {
+    connectionOptions?: SocketIOClient.ConnectOpts
+}> = ({ children, namespaces, url, connectionOptions }) => {
     const sockets: { [key: string]: SocketIOClient.Socket } = {}
 
     if (namespaces && namespaces.length > 0) {
         for (const namespace of namespaces) {
-            const socket = io(url.endsWith('/') ? url + namespace : url + `/${namespace}`)
+            const socket = io(url.endsWith('/') ? url + namespace : url + `/${namespace}`, connectionOptions)
 
             sockets[namespace] = socket
         }
     } else {
-        const socket = io(url)
+        const socket = io(url, connectionOptions)
 
         sockets.default = socket
     }
