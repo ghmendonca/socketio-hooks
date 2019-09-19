@@ -1,14 +1,14 @@
 import { useContext, useEffect, useRef } from 'react';
 import SocketContext from '../contexts/SocketIOContext';
 
-function useSocket(event: string, namespace: string, callback?: (...args: any[]) => void): SocketIOClient.Socket;
-function useSocket(event: string, callback: (...args: any[]) => void): SocketIOClient.Socket;
+function useEvent(event: string, namespace: string, callback?: (...args: any[]) => void): void;
+function useEvent(event: string, callback: (...args: any[]) => void): void;
 
-function useSocket(
+function useEvent(
     event: string,
     namespaceOrCallback: string | ((...args: any[]) => void),
     callback?: (...args: any[]) => void,
-): SocketIOClient.Socket {
+): void {
     const namespace = typeof namespaceOrCallback === 'string' ? namespaceOrCallback : null;
     const callbackFunction = typeof namespaceOrCallback === 'string' ? callback : namespaceOrCallback;
 
@@ -44,8 +44,6 @@ function useSocket(
             };
         }
     }, [event]);
-
-    return socket;
 }
 
-export default useSocket;
+export default useEvent;
