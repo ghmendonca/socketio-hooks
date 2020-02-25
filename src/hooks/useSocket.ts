@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef } from 'react';
-import SocketContext from '../contexts/SocketIOContext';
+import { useEffect, useRef } from 'react';
+import useNamespace from './useNamespace';
 
 function useSocket(event: string, namespace: string, callback?: (...args: any[]) => void): SocketIOClient.Socket;
 function useSocket(event: string, callback: (...args: any[]) => void): SocketIOClient.Socket;
@@ -9,25 +9,13 @@ function useSocket(
     namespaceOrCallback: string | ((...args: any[]) => void),
     callback?: (...args: any[]) => void,
 ): SocketIOClient.Socket {
-    const namespace = typeof namespaceOrCallback === 'string' ? namespaceOrCallback : null;
+    const namespace = typeof namespaceOrCallback === 'string' ? namespaceOrCallback : undefined;
     const callbackFunction = typeof namespaceOrCallback === 'string' ? callback : namespaceOrCallback;
-
-    const sockets = useContext(SocketContext);
 
     const callbackRef = useRef(callbackFunction);
     callbackRef.current = callbackFunction;
 
-    let socket: SocketIOClient.Socket;
-
-    if (namespace) {
-        socket = sockets[namespace];
-
-        if (!socket) {
-            throw new Error(`The namespace provided is not valid (${namespace})`);
-        }
-    } else {
-        socket = sockets.default;
-    }
+    const socket = useNamespace(namespace);
 
     useEffect(() => {
         function socketHandler(this: SocketIOClient.Socket, ...args: any[]) {

@@ -1,24 +1,12 @@
-import { useContext, useCallback } from 'react';
-import SocketContext from '../contexts/SocketIOContext';
+import { useCallback } from 'react';
+import useNamespace from './useNamespace';
 
-function useEmit(event: string, namespace?: string): (...args: any[]) => void {
-    const sockets = useContext(SocketContext);
+type BoundEventEmitter = (...args: any[]) => void;
 
-    let socket: SocketIOClient.Socket;
+function useEmit(event: string, namespace?: string): BoundEventEmitter {
+    const socket = useNamespace(namespace);
 
-    if (namespace) {
-        socket = sockets[namespace];
-
-        if (!socket) {
-            throw new Error(`The namespace provided is not valid (${namespace})`);
-        }
-    } else {
-        socket = sockets.default;
-    }
-
-    return useCallback((...args: any[]) => {
-        socket.emit(event, ...args);
-    }, [socket, event]);
+    return useCallback((...args: any[]) => socket.emit(event, ...args), [socket, event]);
 }
 
 export default useEmit;
