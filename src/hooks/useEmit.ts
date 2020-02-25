@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import SocketContext from '../contexts/SocketIOContext';
 
 function useEmit(event: string, namespace?: string): (...args: any[]) => void {
@@ -16,9 +16,9 @@ function useEmit(event: string, namespace?: string): (...args: any[]) => void {
         socket = sockets.default;
     }
 
-    return (...args: any[]) => {
+    return useCallback((...args: any[]) => {
         socket.emit(event, ...args);
-    };
+    }, [socket, event]);
 }
 
 export default useEmit;
