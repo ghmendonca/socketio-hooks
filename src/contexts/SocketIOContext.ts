@@ -1,7 +1,7 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 const SocketContext = createContext<{
-    [key: string]: SocketIOClient.Socket;
+  [key: string]: SocketIOClient.Socket;
 }>({});
 
 export default SocketContext;
