@@ -1,22 +1,22 @@
-import { useContext } from 'react';
-import SocketContext from '../contexts/SocketIOContext';
+import { useContext } from "react";
+import SocketContext from "../contexts/SocketIOContext";
 
 function useNamespace(namespace?: string): SocketIOClient.Socket {
-    const sockets = useContext(SocketContext);
+  const sockets = useContext(SocketContext);
 
-    let socket: SocketIOClient.Socket;
+  let socket: SocketIOClient.Socket;
 
-    if (namespace) {
-        socket = sockets[namespace];
-    } else {
-        socket = sockets.default;
-    }
+  if (namespace) {
+    socket = sockets[namespace];
+  } else {
+    socket = sockets.default;
+  }
 
-    if (!socket) {
-        throw new Error(`The namespace provided is not valid (${namespace})`);
-    }
+  if (!socket) {
+    throw new Error(`The namespace provided is not valid (${namespace})`);
+  }
 
-    return socket;
+  return socket;
 }
 
 export default useNamespace;

@@ -1,14 +1,17 @@
 {
   "name": "socketio-hooks",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Package containing React Hooks for Socket IO",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prePublish": "npm run build",
+    "test": "npm run test:format && npm run typecheck && npm run lint",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.{js,ts}\"",
-    "lint": "tslint -p tsconfig.json"
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" README.md",
+    "test:format": "prettier --check \"src/**/*.{ts,tsx}\" README.md"
   },
   "repository": {
     "type": "git",
@@ -28,13 +31,20 @@
   "devDependencies": {
     "@types/react": "^16.9.2",
     "@types/socket.io-client": "^1.4.32",
-    "react": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
     "prettier": "^1.18.2",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
+    "react": "^16.9.0",
     "typescript": "^3.6.3"
   },
   "dependencies": {
     "socket.io-client": "^2.2.0"
+  },
+  "peerDependencies": {
+    "react": ">16.8.0"
   }
 }
