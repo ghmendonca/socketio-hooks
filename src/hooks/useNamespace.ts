@@ -1,10 +1,11 @@
 import { useContext } from "react";
+import { Socket } from "socket.io-client";
 import SocketContext from "../contexts/SocketIOContext";
 
-function useNamespace(namespace?: string): SocketIOClient.Socket {
+function useNamespace(namespace?: string): Socket {
   const sockets = useContext(SocketContext);
 
-  let socket: SocketIOClient.Socket;
+  let socket: Socket;
 
   if (namespace) {
     socket = sockets[namespace];

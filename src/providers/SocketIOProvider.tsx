@@ -1,9 +1,9 @@
-import SocketIOContext from "../contexts/SocketIOContext";
 import React from "react";
-import io from "socket.io-client";
+import { io, Socket, ManagerOptions, SocketOptions } from "socket.io-client";
+import SocketIOContext from "../contexts/SocketIOContext";
 
 interface ISockets {
-  [key: string]: SocketIOClient.Socket;
+  [key: string]: Socket;
 }
 
 // TODO since this is a public facing component it should
@@ -11,7 +11,7 @@ interface ISockets {
 interface IProps {
   url: string;
   namespaces?: string[];
-  connectionOptions?: SocketIOClient.ConnectOpts;
+  connectionOptions?: Partial<ManagerOptions & SocketOptions>;
   children: React.ReactNode;
 }
 
