@@ -1,3 +1,9 @@
+## [0.1.0]
+
+### Changes
+
+- upgrade socket io client to v3
+
 ## [0.0.7]
 
 ### Fixes

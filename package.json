@@ -30,7 +30,6 @@
   "homepage": "https://github.com/ghmendonca/socketio-hooks#readme",
   "devDependencies": {
     "@types/react": "^16.9.2",
-    "@types/socket.io-client": "^1.4.32",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^7.0.0",
@@ -42,7 +41,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^3.1.2"
   },
   "peerDependencies": {
     "react": ">16.8.0"

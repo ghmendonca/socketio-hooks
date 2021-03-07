@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Socket } from "socket.io-client";
 import useNamespace from "./useNamespace";
 
 function useEvent(
@@ -24,7 +25,7 @@ function useEvent(
   const socket = useNamespace(namespace);
 
   useEffect(() => {
-    function socketHandler(this: SocketIOClient.Socket, ...args: any[]) {
+    function socketHandler(this: Socket, ...args: any[]) {
       if (callbackRef.current) {
         callbackRef.current.apply(this, args);
       }
@@ -34,7 +35,7 @@ function useEvent(
       socket.on(event, socketHandler);
 
       return () => {
-        socket.removeListener(event, socketHandler);
+        socket.off(event, socketHandler);
       };
     }
   }, [event]);

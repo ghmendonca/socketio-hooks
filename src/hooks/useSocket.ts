@@ -1,21 +1,19 @@
 import { useEffect, useRef } from "react";
+import { Socket } from "socket.io-client";
 import useNamespace from "./useNamespace";
 
 function useSocket(
   event: string,
   namespace: string,
   callback?: (...args: any[]) => void
-): SocketIOClient.Socket;
-function useSocket(
-  event: string,
-  callback: (...args: any[]) => void
-): SocketIOClient.Socket;
+): Socket;
+function useSocket(event: string, callback: (...args: any[]) => void): Socket;
 
 function useSocket(
   event: string,
   namespaceOrCallback: string | ((...args: any[]) => void),
   callback?: (...args: any[]) => void
-): SocketIOClient.Socket {
+): Socket {
   const namespace =
     typeof namespaceOrCallback === "string" ? namespaceOrCallback : undefined;
   const callbackFunction =
@@ -27,7 +25,7 @@ function useSocket(
   const socket = useNamespace(namespace);
 
   useEffect(() => {
-    function socketHandler(this: SocketIOClient.Socket, ...args: any[]) {
+    function socketHandler(this: Socket, ...args: any[]) {
       if (callbackRef.current) {
         callbackRef.current.apply(this, args);
       }
@@ -37,7 +35,7 @@ function useSocket(
       socket.on(event, socketHandler);
 
       return () => {
-        socket.removeListener(event, socketHandler);
+        socket.off(event, socketHandler);
       };
     }
   }, [event]);
